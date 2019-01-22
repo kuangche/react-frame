@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import logo from './images/logo.svg';
-import { getNews } from './actions'
+import actions from './actions'
 
 class MyApp extends Component {
 
@@ -45,7 +45,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getNews : bindActionCreators(getNews,dispatch)
+        getNews : bindActionCreators(actions.newsListGet,dispatch)
     }
 }
 const App = connect(
