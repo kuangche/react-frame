@@ -1,18 +1,15 @@
 import axios from 'axios';
-import { createActions } from 'redux-actions';
+import { createAction } from 'redux-actions';
 import * as actionTypes from './actionTypes';
 
-export default createActions({
-    [actionTypes.NEWS_LIST_GET]: () => {
-        return axios.get(`https://www.reddit.com/r/reactjs.json`)
-            .then(result => {
-                return result.data
-            })
-            .catch(error => {
-                debugger;
-            })
-    },
-    [actionTypes.NEWS_LIST_DEL]: () => {
-        debugger;
-    }
-})
+export const setNews =  createAction(actionTypes.NEWS_LIST_GET, data => data)
+
+export const getNewsList = (params) => (dispatch) => {
+    axios.get(`https://www.reddit.com/r/reactjs.json`)
+        .then(result => {
+            dispatch( setNews( result.data))
+        })
+        .catch(error => {
+            debugger;
+        })
+}

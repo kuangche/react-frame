@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import thunk  from 'redux-thunk';
-import promiseMiddleware from 'redux-promise';
 import { createLogger } from 'redux-logger'
 import { createStore, applyMiddleware  } from 'redux';
 import reducers from './reducers';
@@ -10,7 +9,7 @@ import './scss/main.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-const middleware = [ thunk, promiseMiddleware ]
+const middleware = [ thunk ]
 if (process.env.NODE_ENV !== 'production') {
     middleware.push(createLogger())
 }
