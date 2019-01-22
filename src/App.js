@@ -1,12 +1,25 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import logo from './images/logo.svg';
+import { getNews } from './actions'
 
-class App extends Component {
+class MyApp extends Component {
+
+    shouldComponentUpdate(nextProps, nextState){
+        if(this.props.news === nextProps.news){
+            return false
+        }else{
+            return true;
+        }
+
+    }
   render() {
+    const {news, getNews} = this.props;
     return (
       <div className="App">
-        <header className="App-header">
+        news:{ news.length === 0 ? 'null': JSON.stringify(news)}
+        <header className="App-header" onClick={ () => getNews(parseInt(Math.random()*100))}>
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.js</code> and save to reload.
@@ -24,5 +37,19 @@ class App extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+    return {
+      news : state.news
+    }
+}
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getNews : bindActionCreators(getNews,dispatch)
+    }
+}
+const App = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MyApp)
 export default App;
