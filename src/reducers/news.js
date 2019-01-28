@@ -1,23 +1,24 @@
-import { handleActions } from 'redux-actions';
+import { handleActions } from '../common';
+import Immutable from 'immutable';
 import * as actionTypes from '../actions/actionTypes';
 
-const initialState = [];
+const initialState = Immutable.fromJS({
+    isLoading: false,
+    list: []
+});
 const news = handleActions({
-    [actionTypes.NEWS_LIST_GET]: (state,action) =>{
-        return {
-            data : action.payload
+    [actionTypes.NEWS_LIST_GET]:{
+        pre: state => {
+            return {
+                ...state,
+                isLoading: true
+            }
+        },
+        success: (state, action) => {
+            debugger;
+            return action.payload
         }
     }
 },initialState);
-
-/*const news = (state = initialState, action) => {
-    const { type ,data} = action
-    switch (type) {
-        case 'NEWS_LIST_GET':
-            return data
-        default:
-            return state;
-    }
-};*/
 
 export default news;
